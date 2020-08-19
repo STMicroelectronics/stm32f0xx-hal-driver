@@ -19,6 +19,10 @@ Two models of publication are proposed for the STM32Cube embedded software:
 
 This **stm32f0xx_hal_driver** MCU component repo is one element of the STM32CubeF0 MCU embedded software package, providing the **HAL-LL Drivers** part.
 
+## Release note
+
+Details about the content of this release are available in the release note [here](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/stm32f0xx_hal_driver/blob/master/Release_Notes.html).
+
 ## License
 
 Copyright (c) 2016 STMicroelectronics.
