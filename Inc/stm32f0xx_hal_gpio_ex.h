@@ -502,7 +502,7 @@
 #define GPIO_AF0_TSC          ((uint8_t)0x00U)  /*!< AF0: TSC Alternate Function mapping       */
 #define GPIO_AF0_USART1       ((uint8_t)0x00U)  /*!< AF0: USART1 Alternate Function mapping    */
 #define GPIO_AF0_USART2       ((uint8_t)0x00U)  /*!< AF0: USART2 Alternate Function mapping    */
-#define GPIO_AF0_USART3       ((uint8_t)0x00U)  /*!< AF0: USART2 Alternate Function mapping    */
+#define GPIO_AF0_USART3       ((uint8_t)0x00U)  /*!< AF0: USART3 Alternate Function mapping    */
 #define GPIO_AF0_USART4       ((uint8_t)0x00U)  /*!< AF0: USART4 Alternate Function mapping    */
 #define GPIO_AF0_CAN          ((uint8_t)0x00U)  /*!< AF0: CAN Alternate Function mapping       */
 
