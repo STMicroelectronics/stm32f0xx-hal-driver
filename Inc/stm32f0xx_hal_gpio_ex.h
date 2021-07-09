@@ -502,7 +502,7 @@
 #define GPIO_AF0_TSC          ((uint8_t)0x00U)  /*!< AF0: TSC Alternate Function mapping       */
 #define GPIO_AF0_USART1       ((uint8_t)0x00U)  /*!< AF0: USART1 Alternate Function mapping    */
 #define GPIO_AF0_USART2       ((uint8_t)0x00U)  /*!< AF0: USART2 Alternate Function mapping    */
-#define GPIO_AF0_USART3       ((uint8_t)0x00U)  /*!< AF0: USART2 Alternate Function mapping    */
+#define GPIO_AF0_USART3       ((uint8_t)0x00U)  /*!< AF0: USART3 Alternate Function mapping    */
 #define GPIO_AF0_USART4       ((uint8_t)0x00U)  /*!< AF0: USART4 Alternate Function mapping    */
 #define GPIO_AF0_CAN          ((uint8_t)0x00U)  /*!< AF0: CAN Alternate Function mapping       */
 
@@ -516,8 +516,8 @@
 #define GPIO_AF1_CEC          ((uint8_t)0x01U)  /*!< AF1: CEC Alternate Function mapping       */
 #define GPIO_AF1_EVENTOUT     ((uint8_t)0x01U)  /*!< AF1: EVENTOUT Alternate Function mapping  */
 #define GPIO_AF1_I2C1         ((uint8_t)0x01U)  /*!< AF1: I2C1 Alternate Function mapping      */
-#define GPIO_AF1_I2C2         ((uint8_t)0x01U)  /*!< AF1: I2C1 Alternate Function mapping      */
-#define GPIO_AF1_TSC          ((uint8_t)0x01U)  /*!< AF1: I2C1 Alternate Function mapping      */
+#define GPIO_AF1_I2C2         ((uint8_t)0x01U)  /*!< AF1: I2C2 Alternate Function mapping      */
+#define GPIO_AF1_TSC          ((uint8_t)0x01U)  /*!< AF1: TSC Alternate Function mapping       */
 #define GPIO_AF1_SPI1         ((uint8_t)0x01U)  /*!< AF1: SPI1 Alternate Function mapping      */
 #define GPIO_AF1_SPI2         ((uint8_t)0x01U)  /*!< AF1: SPI2 Alternate Function mapping      */
 
@@ -586,7 +586,7 @@
 #define GPIO_AF1_IR           ((uint8_t)0x01U)  /*!< AF1: IR Alternate Function mapping        */
 #define GPIO_AF1_EVENTOUT     ((uint8_t)0x01U)  /*!< AF1: EVENTOUT Alternate Function mapping  */
 #define GPIO_AF1_I2C1         ((uint8_t)0x01U)  /*!< AF1: I2C1 Alternate Function mapping      */
-#define GPIO_AF1_I2C2         ((uint8_t)0x01U)  /*!< AF1: I2C1 Alternate Function mapping      */
+#define GPIO_AF1_I2C2         ((uint8_t)0x01U)  /*!< AF1: I2C2 Alternate Function mapping      */
 #define GPIO_AF1_SPI2         ((uint8_t)0x01U)  /*!< AF1: SPI2 Alternate Function mapping      */
 
 /* AF 2 */
