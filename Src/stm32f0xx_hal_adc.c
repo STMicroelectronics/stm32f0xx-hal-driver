@@ -1683,8 +1683,8 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
   assert_param(IS_ADC_EOC_SELECTION(hadc->Init.EOCSelection));
 
   /* ========== Check End of Conversion flag for regular group ========== */
-  if( ((tmp_isr & ADC_FLAG_EOC) == ADC_FLAG_EOC) && ((tmp_ier & ADC_IT_EOC) == ADC_IT_EOC) ||
-      ((tmp_isr & ADC_FLAG_EOS) == ADC_FLAG_EOS) && ((tmp_ier & ADC_IT_EOS) == ADC_IT_EOS)   )
+  if( (((tmp_isr & ADC_FLAG_EOC) == ADC_FLAG_EOC) && ((tmp_ier & ADC_IT_EOC) == ADC_IT_EOC)) ||
+      (((tmp_isr & ADC_FLAG_EOS) == ADC_FLAG_EOS) && ((tmp_ier & ADC_IT_EOS) == ADC_IT_EOS))   )
   {
     /* Update state machine on conversion status if not in error state */
     if (HAL_IS_BIT_CLR(hadc->State, HAL_ADC_STATE_ERROR_INTERNAL))
