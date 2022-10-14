@@ -1096,10 +1096,10 @@ void HAL_RCC_DisableCSS(void)
   */
 uint32_t HAL_RCC_GetSysClockFreq(void)
 {
-  const uint8_t aPLLMULFactorTable[16] = { 2U,  3U,  4U,  5U,  6U,  7U,  8U,  9U,
-                                         10U, 11U, 12U, 13U, 14U, 15U, 16U, 16U};
-  const uint8_t aPredivFactorTable[16] = { 1U, 2U,  3U,  4U,  5U,  6U,  7U,  8U,
-                                           9U,10U, 11U, 12U, 13U, 14U, 15U, 16U};
+  static const uint8_t aPLLMULFactorTable[16U] = { 2U,  3U,  4U,  5U,  6U,  7U,  8U,  9U,
+                                                   10U, 11U, 12U, 13U, 14U, 15U, 16U, 16U};
+  static const uint8_t aPredivFactorTable[16U] = { 1U, 2U,  3U,  4U,  5U,  6U,  7U,  8U,
+                                                   9U,10U, 11U, 12U, 13U, 14U, 15U, 16U};
 
   uint32_t tmpreg = 0U, prediv = 0U, pllclk = 0U, pllmul = 0U;
   uint32_t sysclockfreq = 0U;
