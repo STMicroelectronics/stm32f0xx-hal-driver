@@ -496,7 +496,9 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
 #define UART_SENDBREAK_REQUEST              USART_RQR_SBKRQ        /*!< Send Break Request          */
 #define UART_MUTE_MODE_REQUEST              USART_RQR_MMRQ         /*!< Mute Mode Request           */
 #define UART_RXDATA_FLUSH_REQUEST           USART_RQR_RXFRQ        /*!< Receive Data flush Request  */
+#if defined(USART_RQR_TXFRQ)
 #define UART_TXDATA_FLUSH_REQUEST           USART_RQR_TXFRQ        /*!< Transmit data flush Request */
+#endif /* USART_RQR_TXFRQ */
 /**
   * @}
   */
@@ -821,11 +823,18 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @param  __HANDLE__ specifies the UART Handle.
   * @retval None
   */
+#if defined(USART_RQR_TXFRQ)
 #define __HAL_UART_FLUSH_DRREGISTER(__HANDLE__)  \
   do{                \
     SET_BIT((__HANDLE__)->Instance->RQR, UART_RXDATA_FLUSH_REQUEST); \
     SET_BIT((__HANDLE__)->Instance->RQR, UART_TXDATA_FLUSH_REQUEST); \
   }  while(0U)
+#else
+#define __HAL_UART_FLUSH_DRREGISTER(__HANDLE__)  \
+  do{                \
+    SET_BIT((__HANDLE__)->Instance->RQR, UART_RXDATA_FLUSH_REQUEST); \
+  }  while(0U)
+#endif /* USART_RQR_TXFRQ */
 
 /** @brief  Clear the specified UART pending flag.
   * @param  __HANDLE__ specifies the UART Handle.
@@ -1060,7 +1069,9 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   *            @arg @ref UART_SENDBREAK_REQUEST Send Break Request
   *            @arg @ref UART_MUTE_MODE_REQUEST Mute Mode Request
   *            @arg @ref UART_RXDATA_FLUSH_REQUEST Receive Data flush Request
+#if defined(USART_RQR_TXFRQ)
   *            @arg @ref UART_TXDATA_FLUSH_REQUEST Transmit data flush Request
+#endif
   * @retval None
   */
 #define __HAL_UART_SEND_REQ(__HANDLE__, __REQ__) ((__HANDLE__)->Instance->RQR |= (uint16_t)(__REQ__))
@@ -1349,11 +1360,18 @@ typedef  void (*pUART_RxEventCallbackTypeDef)
   * @param __PARAM__ UART request parameter.
   * @retval SET (__PARAM__ is valid) or RESET (__PARAM__ is invalid)
   */
+#if defined(USART_RQR_TXFRQ)
 #define IS_UART_REQUEST_PARAMETER(__PARAM__) (((__PARAM__) == UART_AUTOBAUD_REQUEST)     || \
                                               ((__PARAM__) == UART_SENDBREAK_REQUEST)    || \
                                               ((__PARAM__) == UART_MUTE_MODE_REQUEST)    || \
                                               ((__PARAM__) == UART_RXDATA_FLUSH_REQUEST) || \
                                               ((__PARAM__) == UART_TXDATA_FLUSH_REQUEST))
+#else
+#define IS_UART_REQUEST_PARAMETER(__PARAM__) (((__PARAM__) == UART_AUTOBAUD_REQUEST)     || \
+                                              ((__PARAM__) == UART_SENDBREAK_REQUEST)    || \
+                                              ((__PARAM__) == UART_MUTE_MODE_REQUEST)    || \
+                                              ((__PARAM__) == UART_RXDATA_FLUSH_REQUEST))
+#endif /* USART_RQR_TXFRQ */
 
 /**
   * @brief Ensure that UART advanced features initialization is valid.
