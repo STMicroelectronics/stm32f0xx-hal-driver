@@ -165,7 +165,7 @@ static ErrorStatus IC4Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM
   *          - SUCCESS: TIMx registers are de-initialized
   *          - ERROR: invalid TIMx instance
   */
-ErrorStatus LL_TIM_DeInit(TIM_TypeDef *TIMx)
+ErrorStatus LL_TIM_DeInit(const TIM_TypeDef *TIMx)
 {
   ErrorStatus result = SUCCESS;
 
@@ -1165,3 +1165,4 @@ static ErrorStatus IC4Config(TIM_TypeDef *TIMx, const LL_TIM_IC_InitTypeDef *TIM
   */
 
 #endif /* USE_FULL_LL_DRIVER */
+

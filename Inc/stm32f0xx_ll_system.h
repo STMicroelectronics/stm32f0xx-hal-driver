@@ -83,9 +83,9 @@ extern "C" {
 /** @defgroup SYSTEM_LL_EC_IR_MOD SYSCFG IR Modulation
   * @{
   */
-#define LL_SYSCFG_IR_MOD_TIM16       (SYSCFG_CFGR1_IR_MOD_0 & SYSCFG_CFGR1_IR_MOD_1)    /*!< Timer16 is selected as IR Modulation enveloppe source */
-#define LL_SYSCFG_IR_MOD_USART1      (SYSCFG_CFGR1_IR_MOD_0)                            /*!< USART1 is selected as IR Modulation enveloppe source */
-#define LL_SYSCFG_IR_MOD_USART4      (SYSCFG_CFGR1_IR_MOD_1)                            /*!< USART4 is selected as IR Modulation enveloppe source */
+#define LL_SYSCFG_IR_MOD_TIM16       (SYSCFG_CFGR1_IR_MOD_0 & SYSCFG_CFGR1_IR_MOD_1)    /*!< Timer16 is selected as IR Modulation envelope source */
+#define LL_SYSCFG_IR_MOD_USART1      (SYSCFG_CFGR1_IR_MOD_0)                            /*!< USART1 is selected as IR Modulation envelope source */
+#define LL_SYSCFG_IR_MOD_USART4      (SYSCFG_CFGR1_IR_MOD_1)                            /*!< USART4 is selected as IR Modulation envelope source */
 /**
   * @}
   */
@@ -1847,3 +1847,5 @@ __STATIC_INLINE uint32_t LL_FLASH_IsPrefetchEnabled(void)
 #endif
 
 #endif /* __STM32F0xx_LL_SYSTEM_H */
+
+

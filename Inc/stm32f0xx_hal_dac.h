@@ -423,3 +423,5 @@ uint32_t HAL_DAC_GetError(DAC_HandleTypeDef *hdac);
   
 
 #endif /* STM32F0xx_HAL_DAC_H */
+
+

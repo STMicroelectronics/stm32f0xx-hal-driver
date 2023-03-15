@@ -319,3 +319,6 @@
 #endif
 
 #endif /* __STM32F0xx_HAL_CONF_H */
+
+
+

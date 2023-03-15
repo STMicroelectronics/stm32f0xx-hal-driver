@@ -5,7 +5,7 @@
   *    
   *          This file overrides the native HAL time base functions (defined as weak)
   *          to use the RTC WAKEUP for the time base generation:
-  *           + Intializes the RTC peripheral and configures the wakeup timer to be
+  *           + Initializes the RTC peripheral and configures the wakeup timer to be
   *             incremented each 1ms
   *           + The wakeup feature is configured to assert an interrupt each 1ms 
   *           + HAL_IncTick is called inside the HAL_RTCEx_WakeUpTimerEventCallback
@@ -22,7 +22,7 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
-  @verbatim
+ @verbatim
   ==============================================================================
                         ##### How to use this driver #####
   ==============================================================================
@@ -292,3 +292,5 @@ void RTC_IRQHandler(void)
 /**
   * @}
   */
+
+

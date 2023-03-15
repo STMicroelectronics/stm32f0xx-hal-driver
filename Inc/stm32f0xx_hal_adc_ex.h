@@ -292,3 +292,5 @@ HAL_StatusTypeDef       HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc);
 #endif
 
 #endif /* __STM32F0xx_HAL_ADC_EX_H */
+
+

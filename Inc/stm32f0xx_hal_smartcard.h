@@ -23,7 +23,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#if !defined(STM32F030x6) && !defined(STM32F030x8) && !defined(STM32F070x6) && !defined(STM32F070xB) && !defined(STM32F030xC)
+#if !defined(STM32F030x6) && !defined(STM32F030x8) && !defined(STM32F070x6) \
+ && !defined(STM32F070xB) && !defined(STM32F030xC)
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal_def.h"
 
@@ -1029,8 +1030,8 @@ void HAL_SMARTCARD_AbortReceiveCpltCallback(SMARTCARD_HandleTypeDef *hsmartcard)
   * @{
   */
 
-HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(SMARTCARD_HandleTypeDef *hsmartcard);
-uint32_t                   HAL_SMARTCARD_GetError(SMARTCARD_HandleTypeDef *hsmartcard);
+HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(const SMARTCARD_HandleTypeDef *hsmartcard);
+uint32_t                   HAL_SMARTCARD_GetError(const SMARTCARD_HandleTypeDef *hsmartcard);
 
 /**
   * @}
@@ -1047,9 +1048,10 @@ uint32_t                   HAL_SMARTCARD_GetError(SMARTCARD_HandleTypeDef *hsmar
 /**
   * @}
   */
-#endif /* !defined(STM32F030x6) && !defined(STM32F030x8) && !defined(STM32F070x6) && !defined(STM32F070xB) && !defined(STM32F030xC)  */
+#endif /* !STM32F030x6 && !STM32F030x8 && !STM32F070x6 && !STM32F070xB && !STM32F030xC */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* STM32F0xx_HAL_SMARTCARD_H */
+

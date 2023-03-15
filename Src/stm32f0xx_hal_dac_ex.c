@@ -18,7 +18,7 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
-  @verbatim      
+  @verbatim
   ==============================================================================
                       ##### How to use this driver #####
   ==============================================================================
@@ -29,7 +29,7 @@
       (+) Use HAL_DACEx_TriangleWaveGenerate() to generate Triangle signal.
       (+) Use HAL_DACEx_NoiseWaveGenerate() to generate Noise signal.
    
-  @endverbatim    
+ @endverbatim
   ******************************************************************************
   */
 
@@ -1179,3 +1179,4 @@ __weak void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef *hdac)
 /**
   * @}
   */
+

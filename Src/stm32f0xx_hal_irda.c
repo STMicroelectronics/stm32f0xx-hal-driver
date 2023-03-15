@@ -472,6 +472,8 @@ __weak void HAL_IRDA_MspDeInit(IRDA_HandleTypeDef *hirda)
 /**
   * @brief  Register a User IRDA Callback
   *         To be used instead of the weak predefined callback
+  * @note   The HAL_IRDA_RegisterCallback() may be called before HAL_IRDA_Init() in HAL_IRDA_STATE_RESET
+  *         to register callbacks for HAL_IRDA_MSPINIT_CB_ID and HAL_IRDA_MSPDEINIT_CB_ID
   * @param  hirda irda handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
@@ -500,8 +502,6 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
 
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(hirda);
 
   if (hirda->gState == HAL_IRDA_STATE_READY)
   {
@@ -586,15 +586,14 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hirda);
-
   return status;
 }
 
 /**
   * @brief  Unregister an IRDA callback
   *         IRDA callback is redirected to the weak predefined callback
+  * @note   The HAL_IRDA_UnRegisterCallback() may be called before HAL_IRDA_Init() in HAL_IRDA_STATE_RESET
+  *         to un-register callbacks for HAL_IRDA_MSPINIT_CB_ID and HAL_IRDA_MSPDEINIT_CB_ID
   * @param  hirda irda handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
@@ -613,9 +612,6 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
 HAL_StatusTypeDef HAL_IRDA_UnRegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
-
-  /* Process locked */
-  __HAL_LOCK(hirda);
 
   if (HAL_IRDA_STATE_READY == hirda->gState)
   {
@@ -701,9 +697,6 @@ HAL_StatusTypeDef HAL_IRDA_UnRegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRD
     /* Return error status */
     status =  HAL_ERROR;
   }
-
-  /* Release Lock */
-  __HAL_UNLOCK(hirda);
 
   return status;
 }
@@ -814,7 +807,8 @@ HAL_StatusTypeDef HAL_IRDA_UnRegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRD
   * @note   When IRDA parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
   *         address of user data buffer containing data to be sent, should be aligned on a half word frontier (16 bits)
   *         (as sent data will be handled using u16 pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pData.
+  *         use of specific alignment compilation directives or pragmas might be required
+  *         to ensure proper alignment for pData.
   */
 HAL_StatusTypeDef HAL_IRDA_Transmit(IRDA_HandleTypeDef *hirda, const uint8_t *pData, uint16_t Size, uint32_t Timeout)
 {
@@ -918,9 +912,10 @@ HAL_StatusTypeDef HAL_IRDA_Transmit(IRDA_HandleTypeDef *hirda, const uint8_t *pD
   */
 /**
   * @note   When IRDA parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier (16 bits)
-  *         (as received data will be handled using u16 pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pData.
+  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier
+  *         (16 bits) (as received data will be handled using u16 pointer cast). Depending on compilation chain,
+  *         use of specific alignment compilation directives or pragmas might be required
+  *         to ensure proper alignment for pData.
   */
 HAL_StatusTypeDef HAL_IRDA_Receive(IRDA_HandleTypeDef *hirda, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 {
@@ -1027,7 +1022,8 @@ HAL_StatusTypeDef HAL_IRDA_Receive(IRDA_HandleTypeDef *hirda, uint8_t *pData, ui
   * @note   When IRDA parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
   *         address of user data buffer containing data to be sent, should be aligned on a half word frontier (16 bits)
   *         (as sent data will be handled using u16 pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pData.
+  *         use of specific alignment compilation directives or pragmas might be required
+  *         to ensure proper alignment for pData.
   */
 HAL_StatusTypeDef HAL_IRDA_Transmit_IT(IRDA_HandleTypeDef *hirda, const uint8_t *pData, uint16_t Size)
 {
@@ -1087,9 +1083,10 @@ HAL_StatusTypeDef HAL_IRDA_Transmit_IT(IRDA_HandleTypeDef *hirda, const uint8_t 
   */
 /**
   * @note   When IRDA parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier (16 bits)
-  *         (as received data will be handled using u16 pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pData.
+  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier
+  *         (16 bits) (as received data will be handled using u16 pointer cast). Depending on compilation chain,
+  *         use of specific alignment compilation directives or pragmas might be required
+  *         to ensure proper alignment for pData.
   */
 HAL_StatusTypeDef HAL_IRDA_Receive_IT(IRDA_HandleTypeDef *hirda, uint8_t *pData, uint16_t Size)
 {
@@ -1130,14 +1127,14 @@ HAL_StatusTypeDef HAL_IRDA_Receive_IT(IRDA_HandleTypeDef *hirda, uint8_t *pData,
     __HAL_UNLOCK(hirda);
 
     if (hirda->Init.Parity != IRDA_PARITY_NONE)
-    { 
-      /* Enable the IRDA Parity Error and Data Register not empty Interrupts */  
+    {
+      /* Enable the IRDA Parity Error and Data Register not empty Interrupts */
       SET_BIT(hirda->Instance->CR1, USART_CR1_PEIE | USART_CR1_RXNEIE);
     }
     else
     {
-     /* Enable the IRDA Data Register not empty Interrupts */ 
-     SET_BIT(hirda->Instance->CR1, USART_CR1_RXNEIE); 
+      /* Enable the IRDA Data Register not empty Interrupts */
+      SET_BIT(hirda->Instance->CR1, USART_CR1_RXNEIE);
     }
 
     /* Enable the IRDA Error Interrupt: (Frame error, noise error, overrun error) */
@@ -1166,7 +1163,8 @@ HAL_StatusTypeDef HAL_IRDA_Receive_IT(IRDA_HandleTypeDef *hirda, uint8_t *pData,
   * @note   When IRDA parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
   *         address of user data buffer containing data to be sent, should be aligned on a half word frontier (16 bits)
   *         (as sent data will be handled by DMA from halfword frontier). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pData.
+  *         use of specific alignment compilation directives or pragmas might be required
+  *         to ensure proper alignment for pData.
   */
 HAL_StatusTypeDef HAL_IRDA_Transmit_DMA(IRDA_HandleTypeDef *hirda, const uint8_t *pData, uint16_t Size)
 {
@@ -1261,9 +1259,10 @@ HAL_StatusTypeDef HAL_IRDA_Transmit_DMA(IRDA_HandleTypeDef *hirda, const uint8_t
   */
 /**
   * @note   When IRDA parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier (16 bits)
-  *         (as received data will be handled by DMA from halfword frontier). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pData.
+  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier
+  *         (16 bits) (as received data will be handled by DMA from halfword frontier). Depending on compilation chain,
+  *         use of specific alignment compilation directives or pragmas might be required
+  *         to ensure proper alignment for pData.
   */
 HAL_StatusTypeDef HAL_IRDA_Receive_DMA(IRDA_HandleTypeDef *hirda, uint8_t *pData, uint16_t Size)
 {
@@ -1410,7 +1409,7 @@ HAL_StatusTypeDef HAL_IRDA_DMAResume(IRDA_HandleTypeDef *hirda)
 
     /* Re-enable PE and ERR (Frame error, noise error, overrun error) interrupts */
     if (hirda->Init.Parity != IRDA_PARITY_NONE)
-    {    
+    {
       SET_BIT(hirda->Instance->CR1, USART_CR1_PEIE);
     }
     SET_BIT(hirda->Instance->CR3, USART_CR3_EIE);
@@ -2301,7 +2300,7 @@ __weak void HAL_IRDA_AbortReceiveCpltCallback(IRDA_HandleTypeDef *hirda)
   *                the configuration information for the specified IRDA module.
   * @retval HAL state
   */
-HAL_IRDA_StateTypeDef HAL_IRDA_GetState(IRDA_HandleTypeDef *hirda)
+HAL_IRDA_StateTypeDef HAL_IRDA_GetState(const IRDA_HandleTypeDef *hirda)
 {
   /* Return IRDA handle state */
   uint32_t temp1;
@@ -2318,7 +2317,7 @@ HAL_IRDA_StateTypeDef HAL_IRDA_GetState(IRDA_HandleTypeDef *hirda)
   *               the configuration information for the specified IRDA module.
   * @retval IRDA Error Code
   */
-uint32_t HAL_IRDA_GetError(IRDA_HandleTypeDef *hirda)
+uint32_t HAL_IRDA_GetError(const IRDA_HandleTypeDef *hirda)
 {
   return hirda->ErrorCode;
 }
@@ -2478,11 +2477,12 @@ static HAL_StatusTypeDef IRDA_CheckIdleState(IRDA_HandleTypeDef *hirda)
 }
 
 /**
-  * @brief  Handle IRDA Communication Timeout.
+  * @brief  Handle IRDA Communication Timeout. It waits
+  *         until a flag is no longer in the specified status.
   * @param  hirda Pointer to a IRDA_HandleTypeDef structure that contains
   *               the configuration information for the specified IRDA module.
   * @param  Flag Specifies the IRDA flag to check.
-  * @param  Status Flag status (SET or RESET)
+  * @param  Status The actual Flag status (SET or RESET)
   * @param  Tickstart Tick start value
   * @param  Timeout Timeout duration
   * @retval HAL status
@@ -2530,7 +2530,6 @@ static void IRDA_EndTxTransfer(IRDA_HandleTypeDef *hirda)
   /* At end of Tx process, restore hirda->gState to Ready */
   hirda->gState = HAL_IRDA_STATE_READY;
 }
-
 
 /**
   * @brief  End ongoing Rx transfer on UART peripheral (following error detection or Reception completion).
@@ -3008,3 +3007,5 @@ static void IRDA_Receive_IT(IRDA_HandleTypeDef *hirda)
   * @}
   */
 #endif /* USART_IRDA_SUPPORT */
+
+

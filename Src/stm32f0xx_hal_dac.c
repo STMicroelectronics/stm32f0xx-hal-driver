@@ -6,7 +6,6 @@
   *         This file provides firmware functions to manage the following 
   *         functionalities of the Digital to Analog Converter (DAC) peripheral:
   *           + Initialization and de-initialization functions
-  *           + IO operation functions
   *           + Peripheral Control functions
   *           + Peripheral State and Errors functions      
   *     
@@ -22,7 +21,7 @@
   * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
-  @verbatim      
+  @verbatim
   ==============================================================================
                       ##### DAC Peripheral features #####
   ==============================================================================
@@ -92,7 +91,7 @@
          (#) 12-bit left alignment using DAC_ALIGN_12B_L
          (#) 12-bit right alignment using DAC_ALIGN_12B_R
   
-       *** DAC data value to voltage correspondance ***  
+       *** DAC data value to voltage correspondence ***  
        ================================================ 
        [..] 
        The analog output voltage on each DAC channel pin is determined
@@ -229,7 +228,7 @@
      [..]
       (@) You can refer to the DAC HAL driver header file for more useful macros  
    
-  @endverbatim    
+ @endverbatim
   ******************************************************************************
   */
 
@@ -959,7 +958,7 @@ HAL_StatusTypeDef HAL_DAC_RegisterCallback(DAC_HandleTypeDef *hdac, HAL_DAC_Call
   * @param  hdac DAC handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
-  *          @arg @ref HAL_DAC_CH1_COMPLETE_CB_ID          DAC CH1 tranfer Complete Callback ID
+  *          @arg @ref HAL_DAC_CH1_COMPLETE_CB_ID          DAC CH1 transfer Complete Callback ID
   *          @arg @ref HAL_DAC_CH1_HALF_COMPLETE_CB_ID     DAC CH1 Half Complete Callback ID
   *          @arg @ref HAL_DAC_CH1_ERROR_ID                DAC CH1 Error Callback ID
   *          @arg @ref HAL_DAC_CH1_UNDERRUN_CB_ID          DAC CH1 UnderRun Callback ID
@@ -1085,3 +1084,5 @@ HAL_StatusTypeDef HAL_DAC_UnRegisterCallback(DAC_HandleTypeDef *hdac, HAL_DAC_Ca
 /**
   * @}
   */
+
+

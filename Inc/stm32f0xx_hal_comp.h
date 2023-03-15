@@ -63,7 +63,7 @@ typedef struct
   uint32_t Hysteresis;         /*!< Selects the hysteresis voltage of the comparator.
                                     This parameter can be a value of @ref COMP_Hysteresis */
 
-  uint32_t Mode;               /*!< Selects the operating comsumption mode of the comparator
+  uint32_t Mode;               /*!< Selects the operating consumption mode of the comparator
                                     to adjust the speed/consumption.
                                     This parameter can be a value of @ref COMP_Mode */
 
@@ -198,7 +198,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   */
 #define COMP_NONINVERTINGINPUT_IO1               (0x00000000U) /*!< I/O1 (PA1 for COMP1, PA3 for COMP2) 
                                                                              connected to comparator non inverting input */
-#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED  COMP_CSR_COMP1SW1  /*!< DAC ouput connected to comparator COMP1 non inverting input */
+#define COMP_NONINVERTINGINPUT_DAC1SWITCHCLOSED  COMP_CSR_COMP1SW1  /*!< DAC output connected to comparator COMP1 non inverting input */
 /**
   * @}
   */
@@ -694,3 +694,6 @@ uint32_t              HAL_COMP_GetError(COMP_HandleTypeDef *hcomp);
 #endif
 
 #endif /* STM32F0xx_HAL_COMP_H */
+
+
+

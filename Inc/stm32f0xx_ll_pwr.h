@@ -140,19 +140,19 @@ extern "C" {
 #define LL_PWR_WAKEUP_PIN3                 (PWR_CSR_EWUP3)        /*!< WKUP pin 3 : PE6 or PA2 according to device */
 #endif /* PWR_CSR_EWUP3 */
 #if defined(PWR_CSR_EWUP4)
-#define LL_PWR_WAKEUP_PIN4                 (PWR_CSR_EWUP4)        /*!< WKUP pin 4 : LLG TBD */
+#define LL_PWR_WAKEUP_PIN4                 (PWR_CSR_EWUP4)        /*!< WKUP pin 4 : PA2 */
 #endif /* PWR_CSR_EWUP4 */
 #if defined(PWR_CSR_EWUP5)
-#define LL_PWR_WAKEUP_PIN5                 (PWR_CSR_EWUP5)        /*!< WKUP pin 5 : LLG TBD */
+#define LL_PWR_WAKEUP_PIN5                 (PWR_CSR_EWUP5)        /*!< WKUP pin 5 : PC5 */
 #endif /* PWR_CSR_EWUP5 */
 #if defined(PWR_CSR_EWUP6)
-#define LL_PWR_WAKEUP_PIN6                 (PWR_CSR_EWUP6)        /*!< WKUP pin 6 : LLG TBD */
+#define LL_PWR_WAKEUP_PIN6                 (PWR_CSR_EWUP6)        /*!< WKUP pin 6 : PB5 */
 #endif /* PWR_CSR_EWUP6 */
 #if defined(PWR_CSR_EWUP7)
-#define LL_PWR_WAKEUP_PIN7                 (PWR_CSR_EWUP7)        /*!< WKUP pin 7 : LLG TBD */
+#define LL_PWR_WAKEUP_PIN7                 (PWR_CSR_EWUP7)        /*!< WKUP pin 7 : PB15 */
 #endif /* PWR_CSR_EWUP7 */
 #if defined(PWR_CSR_EWUP8)
-#define LL_PWR_WAKEUP_PIN8                 (PWR_CSR_EWUP8)        /*!< WKUP pin 8 : LLG TBD */
+#define LL_PWR_WAKEUP_PIN8                 (PWR_CSR_EWUP8)        /*!< WKUP pin 8 : PF2 */
 #endif /* PWR_CSR_EWUP8 */
 /**
   * @}

@@ -102,13 +102,13 @@ typedef enum
 #endif /* SYSCFG_CFGR1_PA11_PA12_RMP */
 
 #if defined(STM32F091xC) || defined(STM32F098xx)
-/** @defgroup HAL_IRDA_ENV_SEL HAL IRDA Enveloppe Selection
+/** @defgroup HAL_IRDA_ENV_SEL HAL IRDA Envelope Selection
   * @note Applicable on STM32F09x
   * @{
   */
-#define HAL_SYSCFG_IRDA_ENV_SEL_TIM16     (SYSCFG_CFGR1_IRDA_ENV_SEL_0 & SYSCFG_CFGR1_IRDA_ENV_SEL_1)    /* 00: Timer16 is selected as IRDA Modulation enveloppe source */
-#define HAL_SYSCFG_IRDA_ENV_SEL_USART1    (SYSCFG_CFGR1_IRDA_ENV_SEL_0)  /* 01: USART1 is selected as IRDA Modulation enveloppe source */
-#define HAL_SYSCFG_IRDA_ENV_SEL_USART4    (SYSCFG_CFGR1_IRDA_ENV_SEL_1)  /* 10: USART4 is selected as IRDA Modulation enveloppe source */
+#define HAL_SYSCFG_IRDA_ENV_SEL_TIM16     (SYSCFG_CFGR1_IRDA_ENV_SEL_0 & SYSCFG_CFGR1_IRDA_ENV_SEL_1)    /* 00: Timer16 is selected as IRDA Modulation envelope source */
+#define HAL_SYSCFG_IRDA_ENV_SEL_USART1    (SYSCFG_CFGR1_IRDA_ENV_SEL_0)  /* 01: USART1 is selected as IRDA Modulation envelope source */
+#define HAL_SYSCFG_IRDA_ENV_SEL_USART4    (SYSCFG_CFGR1_IRDA_ENV_SEL_1)  /* 10: USART4 is selected as IRDA Modulation envelope source */
 
 /**
   * @}
@@ -580,3 +580,5 @@ void                HAL_DBGMCU_DisableDBGStandbyMode(void);
 #endif
 
 #endif /* __STM32F0xx_HAL_H */
+
+

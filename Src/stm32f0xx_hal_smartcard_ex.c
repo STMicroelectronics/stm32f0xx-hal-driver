@@ -32,7 +32,8 @@
   @endverbatim
   ******************************************************************************
   */
-#if !defined(STM32F030x6) && !defined(STM32F030x8) && !defined(STM32F070x6) && !defined(STM32F070xB) && !defined(STM32F030xC)
+#if !defined(STM32F030x6) && !defined(STM32F030x8) && !defined(STM32F070x6) \
+ && !defined(STM32F070xB) && !defined(STM32F030xC)
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
 
@@ -194,4 +195,4 @@ HAL_StatusTypeDef HAL_SMARTCARDEx_DisableReceiverTimeOut(SMARTCARD_HandleTypeDef
 /**
   * @}
   */
-#endif /* !defined(STM32F030x6) && !defined(STM32F030x8) && !defined(STM32F070x6) && !defined(STM32F070xB) && !defined(STM32F030xC)  */
+#endif /* !STM32F030x6 && !STM32F030x8 && !STM32F070x6 && !STM32F070xB && !STM32F030xC */

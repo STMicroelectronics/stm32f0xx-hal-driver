@@ -782,7 +782,7 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 /**
   * @brief Enable ADC overrun mode.
   * @param _OVERRUN_MODE_ Overrun mode.
-  * @retval Overun bit setting to be programmed into CFGR register
+  * @retval Overrun bit setting to be programmed into CFGR register
   */
 /* Note: Bit ADC_CFGR1_OVRMOD not used directly in constant                   */
 /* "ADC_OVR_DATA_OVERWRITTEN" to have this case defined to 0x00, to set it    */
@@ -1013,3 +1013,5 @@ uint32_t                HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
 
 
 #endif /* STM32F0xx_HAL_ADC_H */
+
+

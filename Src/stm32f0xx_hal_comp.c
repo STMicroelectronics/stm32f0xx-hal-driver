@@ -6,10 +6,9 @@
   *          This file provides firmware functions to manage the following 
   *          functionalities of the COMP peripheral:
   *           + Initialization/de-initialization functions
-  *           + I/O operation functions
   *           + Peripheral Control functions 
   *           + Peripheral State functions
-  *         
+  *
   ******************************************************************************
   * @attention
   *
@@ -980,3 +979,5 @@ uint32_t HAL_COMP_GetError(COMP_HandleTypeDef *hcomp)
 #endif /* COMP1 || COMP2 */
 
 #endif /* HAL_COMP_MODULE_ENABLED */
+
+

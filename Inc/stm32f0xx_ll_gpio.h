@@ -935,3 +935,4 @@ void        LL_GPIO_StructInit(LL_GPIO_InitTypeDef *GPIO_InitStruct);
 #endif
 
 #endif /* __STM32F0xx_LL_GPIO_H */
+

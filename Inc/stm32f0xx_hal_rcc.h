@@ -9,10 +9,9 @@
   * Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
   * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
   ******************************************************************************
   */
 
@@ -102,7 +101,7 @@
 #define RCC_CR_PLLRDY_BitNumber           25
 /* Flags in the CR2 register */
 #define RCC_CR2_HSI14RDY_BitNumber        1
-#define RCC_CR2_HSI48RDY_BitNumber       16
+#define RCC_CR2_HSI48RDY_BitNumber       17
 /* Flags in the BDCR register */
 #define RCC_BDCR_LSERDY_BitNumber         1
 /* Flags in the CSR register */
@@ -1680,3 +1679,5 @@ void              HAL_RCC_GetClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct,
 #endif
 
 #endif /* __STM32F0xx_HAL_RCC_H */
+
+

@@ -826,3 +826,4 @@ void        LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct);
 #endif
 
 #endif /* __STM32F0xx_LL_COMP_H */
+

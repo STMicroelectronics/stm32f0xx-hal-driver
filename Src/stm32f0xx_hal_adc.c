@@ -6,16 +6,8 @@
   *          functionalities of the Analog to Digital Convertor (ADC)
   *          peripheral:
   *           + Initialization and de-initialization functions
-  *             ++ Initialization and Configuration of ADC
-  *           + Operation functions
-  *             ++ Start, stop, get result of conversions of regular
-  *                group, using 3 possible modes: polling, interruption or DMA.
-  *           + Control functions
-  *             ++ Channels configuration on regular group
-  *             ++ Analog Watchdog configuration
-  *           + State functions
-  *             ++ ADC state machine management
-  *             ++ Interrupts and flags management
+  *           + Peripheral Control functions
+  *           + Peripheral State functions
   *          Other functions (extended functions) are available in file 
   *          "stm32f0xx_hal_adc_ex.c".
   *
@@ -296,7 +288,6 @@
      are set to the corresponding weak functions.
   
     @endverbatim
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -1891,7 +1882,7 @@ __weak void HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
   * @note   Possibility to update parameters on the fly:
   *         This function initializes channel into regular group, following  
   *         calls to this function can be used to reconfigure some parameters 
-  *         of structure "ADC_ChannelConfTypeDef" on the fly, without reseting 
+  *         of structure "ADC_ChannelConfTypeDef" on the fly, without resetting 
   *         the ADC.
   *         The setting of these parameters is conditioned to ADC state.
   *         For parameters constraints, see comments of structure 
@@ -1941,7 +1932,7 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConf
       /* ADC initialization structure with parameter "SamplingTimeCommon".    */
       if (! IS_ADC_SAMPLE_TIME(hadc->Init.SamplingTimeCommon))
       {
-        /* Modify sampling time if needed (not needed in case of reoccurrence */
+        /* Modify sampling time if needed (not needed in case of recurrence */
         /* for several channels programmed consecutively into the sequencer)  */
         if (sConfig->SamplingTime != ADC_GET_SAMPLINGTIME(hadc))
         {
@@ -2024,7 +2015,7 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConf
   * @note   Possibility to update parameters on the fly:
   *         This function initializes the selected analog watchdog, following  
   *         calls to this function can be used to reconfigure some parameters 
-  *         of structure "ADC_AnalogWDGConfTypeDef" on the fly, without reseting 
+  *         of structure "ADC_AnalogWDGConfTypeDef" on the fly, without resetting 
   *         the ADC.
   *         The setting of these parameters is conditioned to ADC state.
   *         For parameters constraints, see comments of structure 
@@ -2496,3 +2487,4 @@ static void ADC_DMAError(DMA_HandleTypeDef *hdma)
 /**
   * @}
   */
+

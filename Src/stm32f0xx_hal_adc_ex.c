@@ -5,8 +5,7 @@
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the Analog to Digital Convertor (ADC)
   *          peripheral:
-  *           + Operation functions
-  *             ++ Calibration (ADC automatic self-calibration)
+  *           + Peripheral Control functions
   *          Other functions (generic functions) are available in file 
   *          "stm32f0xx_hal_adc.c".
   *
@@ -27,7 +26,6 @@
       available in file of generic functions "stm32l1xx_hal_adc.c".
   [..]
   @endverbatim
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -115,8 +113,8 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc)
                       HAL_ADC_STATE_BUSY_INTERNAL);
     
     /* Disable ADC DMA transfer request during calibration */
-    /* Note: Specificity of this STM32 serie: Calibration factor is           */
-    /*       available in data register and also transfered by DMA.           */
+    /* Note: Specificity of this STM32 series: Calibration factor is           */
+    /*       available in data register and also transferred by DMA.           */
     /*       To not insert ADC calibration factor among ADC conversion data   */
     /*       in array variable, DMA transfer must be disabled during          */
     /*       calibration.                                                     */
@@ -188,3 +186,4 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc)
 /**
   * @}
   */
+

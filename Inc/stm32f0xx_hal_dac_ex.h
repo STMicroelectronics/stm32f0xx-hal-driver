@@ -287,3 +287,4 @@ uint32_t          HAL_DACEx_DualGetValue(DAC_HandleTypeDef* hdac);
 #endif 
   
 #endif /*__STM32F0xx_HAL_DAC_EX_H */
+
