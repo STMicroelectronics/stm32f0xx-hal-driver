@@ -33,7 +33,7 @@
          (++) Enable the CAN interface clock using __HAL_RCC_CANx_CLK_ENABLE()
          (++) Configure CAN pins
              (+++) Enable the clock for the CAN GPIOs
-             (+++) Configure CAN pins as alternate function open-drain
+             (+++) Configure CAN pins as alternate function
          (++) In case of using interrupts (e.g. HAL_CAN_ActivateNotification())
              (+++) Configure the CAN interrupt priority using
                    HAL_NVIC_SetPriority()
