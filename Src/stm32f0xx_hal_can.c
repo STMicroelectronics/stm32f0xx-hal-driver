@@ -235,6 +235,7 @@
   * @{
   */
 #define CAN_TIMEOUT_VALUE 10U
+#define CAN_WAKEUP_TIMEOUT_COUNTER 1000000U
 /**
   * @}
   */
@@ -1127,7 +1128,6 @@ HAL_StatusTypeDef HAL_CAN_RequestSleep(CAN_HandleTypeDef *hcan)
 HAL_StatusTypeDef HAL_CAN_WakeUp(CAN_HandleTypeDef *hcan)
 {
   __IO uint32_t count = 0;
-  uint32_t timeout = 1000000U;
   HAL_CAN_StateTypeDef state = hcan->State;
 
   if ((state == HAL_CAN_STATE_READY) ||
@@ -1143,15 +1143,14 @@ HAL_StatusTypeDef HAL_CAN_WakeUp(CAN_HandleTypeDef *hcan)
       count++;
 
       /* Check if timeout is reached */
-      if (count > timeout)
+      if (count > CAN_WAKEUP_TIMEOUT_COUNTER)
       {
         /* Update error code */
         hcan->ErrorCode |= HAL_CAN_ERROR_TIMEOUT;
 
         return HAL_ERROR;
       }
-    }
-    while ((hcan->Instance->MSR & CAN_MSR_SLAK) != 0U);
+    } while ((hcan->Instance->MSR & CAN_MSR_SLAK) != 0U);
 
     /* Return function status */
     return HAL_OK;
