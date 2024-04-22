@@ -27,17 +27,7 @@ Details about the content of this release are available in the release note [her
 
 ## Compatibility information
 
-In this table, you can find the successive versions of this HAL-LL Driver component, in line with the corresponding versions of the full MCU package:
-
-It is **crucial** that you use a consistent set of versions for the CMSIS Core - CMSIS Device - HAL, as mentioned in this table.
-
-HAL Driver F0 | CMSIS Device F0 | CMSIS Core | Was delivered in the full MCU package
-------------- | --------------- | ---------- | -------------------------------------
-Tag v1.7.2 | Tag v2.3.3 | Tag v4.5_cm0 | Tag v1.10.1 (and following, if any, till next HAL tag)
-Tag v1.7.3 | Tag v2.3.4 | Tag v5.4.0_cm0 | Tag v1.11.0 (and following, if any, till next HAL tag)
-Tag v1.7.4 | Tag v2.3.4 | Tag v5.4.0_cm0 | Tag v1.11.1 (and following, if any, till next HAL tag)
-Tag v1.7.5 | Tag v2.3.5 | Tag v5.4.0_cm0 | Tag v1.11.2 (and following, if any, till next HAL tag)
-Tag v1.7.6 | Tag v2.3.6 | Tag v5.4.0_cm0 | Tag v1.11.3 (and following, if any, till next HAL tag)
+It is **crucial** that you use a consistent set of versions for the CMSIS Core - CMSIS Device - HAL, as mentioned in [this](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/STM32CubeF0/blob/master/Release_Notes.html) release note.
 
 The full **STM32CubeF0** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeF0).
 

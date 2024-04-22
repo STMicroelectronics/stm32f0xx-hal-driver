@@ -3831,7 +3831,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
     if ((itsource & (TIM_IT_CC1)) == (TIM_IT_CC1))
     {
       {
-        __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC1);
+        __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_CC1);
         htim->Channel = HAL_TIM_ACTIVE_CHANNEL_1;
 
         /* Input capture event */
@@ -3863,7 +3863,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
   {
     if ((itsource & (TIM_IT_CC2)) == (TIM_IT_CC2))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC2);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_CC2);
       htim->Channel = HAL_TIM_ACTIVE_CHANNEL_2;
       /* Input capture event */
       if ((htim->Instance->CCMR1 & TIM_CCMR1_CC2S) != 0x00U)
@@ -3893,7 +3893,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
   {
     if ((itsource & (TIM_IT_CC3)) == (TIM_IT_CC3))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC3);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_CC3);
       htim->Channel = HAL_TIM_ACTIVE_CHANNEL_3;
       /* Input capture event */
       if ((htim->Instance->CCMR2 & TIM_CCMR2_CC3S) != 0x00U)
@@ -3923,7 +3923,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
   {
     if ((itsource & (TIM_IT_CC4)) == (TIM_IT_CC4))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_CC4);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_CC4);
       htim->Channel = HAL_TIM_ACTIVE_CHANNEL_4;
       /* Input capture event */
       if ((htim->Instance->CCMR2 & TIM_CCMR2_CC4S) != 0x00U)
@@ -3953,7 +3953,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
   {
     if ((itsource & (TIM_IT_UPDATE)) == (TIM_IT_UPDATE))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_UPDATE);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_UPDATE);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
       htim->PeriodElapsedCallback(htim);
 #else
@@ -3966,7 +3966,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
   {
     if ((itsource & (TIM_IT_BREAK)) == (TIM_IT_BREAK))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_BREAK);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_BREAK);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
       htim->BreakCallback(htim);
 #else
@@ -3979,7 +3979,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
   {
     if ((itsource & (TIM_IT_TRIGGER)) == (TIM_IT_TRIGGER))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_IT_TRIGGER);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_TRIGGER);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
       htim->TriggerCallback(htim);
 #else
@@ -3992,7 +3992,7 @@ void HAL_TIM_IRQHandler(TIM_HandleTypeDef *htim)
   {
     if ((itsource & (TIM_IT_COM)) == (TIM_IT_COM))
     {
-      __HAL_TIM_CLEAR_IT(htim, TIM_FLAG_COM);
+      __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_COM);
 #if (USE_HAL_TIM_REGISTER_CALLBACKS == 1)
       htim->CommutationCallback(htim);
 #else
@@ -4479,7 +4479,8 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_ConfigChannel(TIM_HandleTypeDef *htim,  TIM_O
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress,
-                                              uint32_t BurstRequestSrc, const uint32_t *BurstBuffer, uint32_t  BurstLength)
+                                              uint32_t BurstRequestSrc, const uint32_t *BurstBuffer,
+                                              uint32_t  BurstLength)
 {
   HAL_StatusTypeDef status;
 
@@ -6822,6 +6823,13 @@ void TIM_Base_SetConfig(TIM_TypeDef *TIMx, const TIM_Base_InitTypeDef *Structure
   /* Generate an update event to reload the Prescaler
      and the repetition counter (only for advanced timer) value immediately */
   TIMx->EGR = TIM_EGR_UG;
+
+  /* Check if the update flag is set after the Update Generation, if so clear the UIF flag */
+  if (HAL_IS_BIT_SET(TIMx->SR, TIM_FLAG_UPDATE))
+  {
+    /* Clear the update flag */
+    CLEAR_BIT(TIMx->SR, TIM_FLAG_UPDATE);
+  }
 }
 
 /**
@@ -6836,11 +6844,12 @@ static void TIM_OC1_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Co
   uint32_t tmpccer;
   uint32_t tmpcr2;
 
+  /* Get the TIMx CCER register value */
+  tmpccer = TIMx->CCER;
+
   /* Disable the Channel 1: Reset the CC1E Bit */
   TIMx->CCER &= ~TIM_CCER_CC1E;
 
-  /* Get the TIMx CCER register value */
-  tmpccer = TIMx->CCER;
   /* Get the TIMx CR2 register value */
   tmpcr2 =  TIMx->CR2;
 
@@ -6911,11 +6920,12 @@ void TIM_OC2_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Config)
   uint32_t tmpccer;
   uint32_t tmpcr2;
 
+  /* Get the TIMx CCER register value */
+  tmpccer = TIMx->CCER;
+
   /* Disable the Channel 2: Reset the CC2E Bit */
   TIMx->CCER &= ~TIM_CCER_CC2E;
 
-  /* Get the TIMx CCER register value */
-  tmpccer = TIMx->CCER;
   /* Get the TIMx CR2 register value */
   tmpcr2 =  TIMx->CR2;
 
@@ -6944,7 +6954,6 @@ void TIM_OC2_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Config)
     tmpccer |= (OC_Config->OCNPolarity << 4U);
     /* Reset the Output N State */
     tmpccer &= ~TIM_CCER_CC2NE;
-
   }
 
   if (IS_TIM_BREAK_INSTANCE(TIMx))
@@ -6987,11 +6996,12 @@ static void TIM_OC3_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Co
   uint32_t tmpccer;
   uint32_t tmpcr2;
 
+  /* Get the TIMx CCER register value */
+  tmpccer = TIMx->CCER;
+
   /* Disable the Channel 3: Reset the CC2E Bit */
   TIMx->CCER &= ~TIM_CCER_CC3E;
 
-  /* Get the TIMx CCER register value */
-  tmpccer = TIMx->CCER;
   /* Get the TIMx CR2 register value */
   tmpcr2 =  TIMx->CR2;
 
@@ -7061,11 +7071,12 @@ static void TIM_OC4_SetConfig(TIM_TypeDef *TIMx, const TIM_OC_InitTypeDef *OC_Co
   uint32_t tmpccer;
   uint32_t tmpcr2;
 
+  /* Get the TIMx CCER register value */
+  tmpccer = TIMx->CCER;
+
   /* Disable the Channel 4: Reset the CC4E Bit */
   TIMx->CCER &= ~TIM_CCER_CC4E;
 
-  /* Get the TIMx CCER register value */
-  tmpccer = TIMx->CCER;
   /* Get the TIMx CR2 register value */
   tmpcr2 =  TIMx->CR2;
 
@@ -7256,9 +7267,9 @@ void TIM_TI1_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32_t TIM_
   uint32_t tmpccer;
 
   /* Disable the Channel 1: Reset the CC1E Bit */
+  tmpccer = TIMx->CCER;
   TIMx->CCER &= ~TIM_CCER_CC1E;
   tmpccmr1 = TIMx->CCMR1;
-  tmpccer = TIMx->CCER;
 
   /* Select the Input */
   if (IS_TIM_CC2_INSTANCE(TIMx) != RESET)
@@ -7346,9 +7357,9 @@ static void TIM_TI2_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   uint32_t tmpccer;
 
   /* Disable the Channel 2: Reset the CC2E Bit */
+  tmpccer = TIMx->CCER;
   TIMx->CCER &= ~TIM_CCER_CC2E;
   tmpccmr1 = TIMx->CCMR1;
-  tmpccer = TIMx->CCER;
 
   /* Select the Input */
   tmpccmr1 &= ~TIM_CCMR1_CC2S;
@@ -7385,9 +7396,9 @@ static void TIM_TI2_ConfigInputStage(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity,
   uint32_t tmpccer;
 
   /* Disable the Channel 2: Reset the CC2E Bit */
+  tmpccer = TIMx->CCER;
   TIMx->CCER &= ~TIM_CCER_CC2E;
   tmpccmr1 = TIMx->CCMR1;
-  tmpccer = TIMx->CCER;
 
   /* Set the filter */
   tmpccmr1 &= ~TIM_CCMR1_IC2F;
@@ -7429,9 +7440,9 @@ static void TIM_TI3_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   uint32_t tmpccer;
 
   /* Disable the Channel 3: Reset the CC3E Bit */
+  tmpccer = TIMx->CCER;
   TIMx->CCER &= ~TIM_CCER_CC3E;
   tmpccmr2 = TIMx->CCMR2;
-  tmpccer = TIMx->CCER;
 
   /* Select the Input */
   tmpccmr2 &= ~TIM_CCMR2_CC3S;
@@ -7477,9 +7488,9 @@ static void TIM_TI4_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   uint32_t tmpccer;
 
   /* Disable the Channel 4: Reset the CC4E Bit */
+  tmpccer = TIMx->CCER;
   TIMx->CCER &= ~TIM_CCER_CC4E;
   tmpccmr2 = TIMx->CCMR2;
-  tmpccer = TIMx->CCER;
 
   /* Select the Input */
   tmpccmr2 &= ~TIM_CCMR2_CC4S;
