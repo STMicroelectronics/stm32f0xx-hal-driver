@@ -3340,14 +3340,14 @@ HAL_StatusTypeDef HAL_I2C_IsDeviceReady(I2C_HandleTypeDef *hi2c, uint16_t DevAdd
       }
       else
       {
+        /* Clear NACK Flag */
+        __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
+        
         /* Wait until STOPF flag is reset */
         if (I2C_WaitOnFlagUntilTimeout(hi2c, I2C_FLAG_STOPF, RESET, Timeout, tickstart) != HAL_OK)
         {
           return HAL_ERROR;
         }
-
-        /* Clear NACK Flag */
-        __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
 
         /* Clear STOP Flag, auto generated with autoend*/
         __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
