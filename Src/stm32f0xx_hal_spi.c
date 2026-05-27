@@ -818,7 +818,7 @@ HAL_StatusTypeDef HAL_SPI_UnRegisterCallback(SPI_HandleTypeDef *hspi, HAL_SPI_Ca
   * @param  Timeout Timeout duration
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout)
+HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, const uint8_t *pData, uint16_t Size, uint32_t Timeout)
 {
   uint32_t tickstart;
   HAL_StatusTypeDef errorcode = HAL_OK;
@@ -849,7 +849,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX;
   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-  hspi->pTxBuffPtr  = (uint8_t *)pData;
+  hspi->pTxBuffPtr  = (const uint8_t *)pData;
   hspi->TxXferSize  = Size;
   hspi->TxXferCount = Size;
 
@@ -888,7 +888,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint
   {
     if ((hspi->Init.Mode == SPI_MODE_SLAVE) || (initial_TxXferCount == 0x01U))
     {
-      hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
+      hspi->Instance->DR = *((const uint16_t *)hspi->pTxBuffPtr);
       hspi->pTxBuffPtr += sizeof(uint16_t);
       hspi->TxXferCount--;
     }
@@ -898,7 +898,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint
       /* Wait until TXE flag is set to send data */
       if (__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXE))
       {
-        hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
+        hspi->Instance->DR = *((const uint16_t *)hspi->pTxBuffPtr);
         hspi->pTxBuffPtr += sizeof(uint16_t);
         hspi->TxXferCount--;
       }
@@ -919,7 +919,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint
   {
     if ((hspi->Init.Mode == SPI_MODE_SLAVE) || (initial_TxXferCount == 0x01U))
     {
-      *((__IO uint8_t *)&hspi->Instance->DR) = (*hspi->pTxBuffPtr);
+      *((__IO uint8_t *)&hspi->Instance->DR) = *((const uint8_t *)hspi->pTxBuffPtr);
       hspi->pTxBuffPtr += sizeof(uint8_t);
       hspi->TxXferCount--;
     }
@@ -928,7 +928,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint
       /* Wait until TXE flag is set to send data */
       if (__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXE))
       {
-        *((__IO uint8_t *)&hspi->Instance->DR) = (*hspi->pTxBuffPtr);
+        *((__IO uint8_t *)&hspi->Instance->DR) = *((const uint8_t *)hspi->pTxBuffPtr);
         hspi->pTxBuffPtr += sizeof(uint8_t);
         hspi->TxXferCount--;
       }
@@ -1233,8 +1233,8 @@ error :
   * @param  Timeout Timeout duration
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size,
-                                          uint32_t Timeout)
+HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t *pRxData,
+                                          uint16_t Size, uint32_t Timeout)
 {
   uint16_t             initial_TxXferCount;
   uint32_t             tmp_mode;
@@ -1294,7 +1294,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
   hspi->pRxBuffPtr  = (uint8_t *)pRxData;
   hspi->RxXferCount = Size;
   hspi->RxXferSize  = Size;
-  hspi->pTxBuffPtr  = (uint8_t *)pTxData;
+  hspi->pTxBuffPtr  = (const uint8_t *)pTxData;
   hspi->TxXferCount = Size;
   hspi->TxXferSize  = Size;
 
@@ -1334,7 +1334,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
   {
     if ((hspi->Init.Mode == SPI_MODE_SLAVE) || (initial_TxXferCount == 0x01U))
     {
-      hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
+      hspi->Instance->DR = *((const uint16_t *)hspi->pTxBuffPtr);
       hspi->pTxBuffPtr += sizeof(uint16_t);
       hspi->TxXferCount--;
 
@@ -1357,7 +1357,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
       /* Check TXE flag */
       if ((__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXE)) && (hspi->TxXferCount > 0U) && (txallowed == 1U))
       {
-        hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
+        hspi->Instance->DR = *((const uint16_t *)hspi->pTxBuffPtr);
         hspi->pTxBuffPtr += sizeof(uint16_t);
         hspi->TxXferCount--;
         /* Next Data is a reception (Rx). Tx not allowed */
@@ -1399,7 +1399,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
   {
     if ((hspi->Init.Mode == SPI_MODE_SLAVE) || (initial_TxXferCount == 0x01U))
     {
-      *((__IO uint8_t *)&hspi->Instance->DR) = (*hspi->pTxBuffPtr);
+      *(__IO uint8_t *)&hspi->Instance->DR = *((const uint8_t *)hspi->pTxBuffPtr);
       hspi->pTxBuffPtr += sizeof(uint8_t);
       hspi->TxXferCount--;
 
@@ -1421,7 +1421,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
       /* Check TXE flag */
       if ((__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_TXE)) && (hspi->TxXferCount > 0U) && (txallowed == 1U))
       {
-        *(__IO uint8_t *)&hspi->Instance->DR = (*hspi->pTxBuffPtr);
+        *(__IO uint8_t *)&hspi->Instance->DR = *((const uint8_t *)hspi->pTxBuffPtr);
         hspi->pTxBuffPtr++;
         hspi->TxXferCount--;
         /* Next Data is a reception (Rx). Tx not allowed */
@@ -1545,7 +1545,7 @@ error :
   * @param  Size amount of data to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, const uint8_t *pData, uint16_t Size)
 {
   HAL_StatusTypeDef errorcode = HAL_OK;
 
@@ -1571,7 +1571,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit_IT(SPI_HandleTypeDef *hspi, uint8_t *pData, u
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX;
   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-  hspi->pTxBuffPtr  = (uint8_t *)pData;
+  hspi->pTxBuffPtr  = (const uint8_t *)pData;
   hspi->TxXferSize  = Size;
   hspi->TxXferCount = Size;
 
@@ -1740,7 +1740,8 @@ error :
   * @param  Size amount of data to be sent and received
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size)
+HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t *pRxData,
+                                             uint16_t Size)
 {
   uint32_t             tmp_mode;
   HAL_SPI_StateTypeDef tmp_state;
@@ -1777,7 +1778,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *hspi, uint8_t *p
 
   /* Set the transaction information */
   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-  hspi->pTxBuffPtr  = (uint8_t *)pTxData;
+  hspi->pTxBuffPtr  = (const uint8_t *)pTxData;
   hspi->TxXferSize  = Size;
   hspi->TxXferCount = Size;
   hspi->pRxBuffPtr  = (uint8_t *)pRxData;
@@ -1850,7 +1851,7 @@ error :
   * @param  Size amount of data to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, const uint8_t *pData, uint16_t Size)
 {
   HAL_StatusTypeDef errorcode = HAL_OK;
 
@@ -1878,7 +1879,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, 
   /* Set the transaction information */
   hspi->State       = HAL_SPI_STATE_BUSY_TX;
   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-  hspi->pTxBuffPtr  = (uint8_t *)pData;
+  hspi->pTxBuffPtr  = (const uint8_t *)pData;
   hspi->TxXferSize  = Size;
   hspi->TxXferCount = Size;
 
@@ -2127,7 +2128,7 @@ error:
   * @param  Size amount of data to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData,
+HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, const uint8_t *pTxData, uint8_t *pRxData,
                                               uint16_t Size)
 {
   uint32_t             tmp_mode;
@@ -2169,7 +2170,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, uint8_t *
 
   /* Set the transaction information */
   hspi->ErrorCode   = HAL_SPI_ERROR_NONE;
-  hspi->pTxBuffPtr  = (uint8_t *)pTxData;
+  hspi->pTxBuffPtr  = (const uint8_t *)pTxData;
   hspi->TxXferSize  = Size;
   hspi->TxXferCount = Size;
   hspi->pRxBuffPtr  = (uint8_t *)pRxData;
@@ -2984,7 +2985,7 @@ __weak void HAL_SPI_AbortCpltCallback(SPI_HandleTypeDef *hspi)
   *               the configuration information for SPI module.
   * @retval SPI state
   */
-HAL_SPI_StateTypeDef HAL_SPI_GetState(SPI_HandleTypeDef *hspi)
+HAL_SPI_StateTypeDef HAL_SPI_GetState(const SPI_HandleTypeDef *hspi)
 {
   /* Return SPI handle state */
   return hspi->State;
@@ -2996,7 +2997,7 @@ HAL_SPI_StateTypeDef HAL_SPI_GetState(SPI_HandleTypeDef *hspi)
   *               the configuration information for SPI module.
   * @retval SPI error code in bitmap format
   */
-uint32_t HAL_SPI_GetError(SPI_HandleTypeDef *hspi)
+uint32_t HAL_SPI_GetError(const SPI_HandleTypeDef *hspi)
 {
   /* Return SPI ErrorCode */
   return hspi->ErrorCode;
@@ -3615,14 +3616,14 @@ static void SPI_2linesTxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
   /* Transmit data in packing Bit mode */
   if (hspi->TxXferCount >= 2U)
   {
-    hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
+    hspi->Instance->DR = *((const uint16_t *)hspi->pTxBuffPtr);
     hspi->pTxBuffPtr += sizeof(uint16_t);
     hspi->TxXferCount -= 2U;
   }
   /* Transmit data in 8 Bit mode */
   else
   {
-    *(__IO uint8_t *)&hspi->Instance->DR = (*hspi->pTxBuffPtr);
+    *(__IO uint8_t *)&hspi->Instance->DR = *((const uint8_t *)hspi->pTxBuffPtr);
     hspi->pTxBuffPtr++;
     hspi->TxXferCount--;
   }
@@ -3716,7 +3717,7 @@ static void SPI_2linesRxISR_16BITCRC(struct __SPI_HandleTypeDef *hspi)
 static void SPI_2linesTxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
 {
   /* Transmit data in 16 Bit mode */
-  hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
+  hspi->Instance->DR = *((const uint16_t *)hspi->pTxBuffPtr);
   hspi->pTxBuffPtr += sizeof(uint16_t);
   hspi->TxXferCount--;
 
@@ -3753,7 +3754,7 @@ static void SPI_2linesTxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
   */
 static void SPI_RxISR_8BITCRC(struct __SPI_HandleTypeDef *hspi)
 {
-  __IO uint8_t  *ptmpreg8;
+  __IO const uint8_t  *ptmpreg8;
   __IO uint8_t  tmpreg8 = 0;
 
   /* Initialize the 8bit temporary pointer */
@@ -3869,7 +3870,7 @@ static void SPI_RxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
   */
 static void SPI_TxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
 {
-  *(__IO uint8_t *)&hspi->Instance->DR = (*hspi->pTxBuffPtr);
+  *(__IO uint8_t *)&hspi->Instance->DR = *((const uint8_t *)hspi->pTxBuffPtr);
   hspi->pTxBuffPtr++;
   hspi->TxXferCount--;
 
@@ -3895,7 +3896,7 @@ static void SPI_TxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
 static void SPI_TxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
 {
   /* Transmit data in 16 Bit mode */
-  hspi->Instance->DR = *((uint16_t *)hspi->pTxBuffPtr);
+  hspi->Instance->DR = *((const uint16_t *)hspi->pTxBuffPtr);
   hspi->pTxBuffPtr += sizeof(uint16_t);
   hspi->TxXferCount--;
 
