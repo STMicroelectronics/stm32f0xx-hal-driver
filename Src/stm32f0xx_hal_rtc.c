@@ -1743,14 +1743,15 @@ HAL_StatusTypeDef RTC_ExitInitMode(RTC_HandleTypeDef *hrtc)
 uint8_t RTC_ByteToBcd2(uint8_t number)
 {
   uint32_t bcdhigh = 0U;
+  uint8_t  bcdlow  = number;
 
-  while (number >= 10U)
+  while (bcdlow >= 10U)
   {
     bcdhigh++;
-    number -= 10U;
+    bcdlow -= 10U;
   }
 
-  return ((uint8_t)(bcdhigh << 4U) | number);
+  return ((uint8_t)(bcdhigh << 4U) | bcdlow);
 }
 
 /**
