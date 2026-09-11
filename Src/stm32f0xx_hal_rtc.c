@@ -1490,7 +1490,7 @@ HAL_StatusTypeDef HAL_RTC_PollForAlarmAEvent(RTC_HandleTypeDef *hrtc, uint32_t T
   {
     if (Timeout != HAL_MAX_DELAY)
     {
-      if ((Timeout == 0U) || ((HAL_GetTick() - tickstart) > Timeout))
+      if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0U))
       {
         hrtc->State = HAL_RTC_STATE_TIMEOUT;
         return HAL_TIMEOUT;
