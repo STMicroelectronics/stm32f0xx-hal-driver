@@ -840,7 +840,7 @@ HAL_StatusTypeDef HAL_CAN_UnRegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_Ca
 HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, const CAN_FilterTypeDef *sFilterConfig)
 {
   uint32_t filternbrbitpos;
-  CAN_TypeDef *can_ip = hcan->Instance;
+  CAN_TypeDef *can_ip;
   HAL_CAN_StateTypeDef state = hcan->State;
 
   if ((state == HAL_CAN_STATE_READY) ||
@@ -857,6 +857,7 @@ HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, const CAN_Filter
     assert_param(IS_CAN_FILTER_ACTIVATION(sFilterConfig->FilterActivation));
 
     /* CAN is single instance with 14 dedicated filters banks */
+    can_ip = hcan->Instance;
 
     /* Check the parameters */
     assert_param(IS_CAN_FILTER_BANK_SINGLE(sFilterConfig->FilterBank));
@@ -1199,8 +1200,8 @@ uint32_t HAL_CAN_IsSleepActive(const CAN_HandleTypeDef *hcan)
   * @param  pHeader pointer to a CAN_TxHeaderTypeDef structure.
   * @param  aData array containing the payload of the Tx frame.
   * @param  pTxMailbox pointer to a variable where the function will return
-  *         the TxMailbox used to store the Tx message.
-  *         This parameter can be a value of @arg CAN_Tx_Mailboxes.
+  *         the TxMailbox used to store the Tx message,
+  *         with a value of @arg CAN_Tx_Mailboxes.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, const CAN_TxHeaderTypeDef *pHeader,

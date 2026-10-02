@@ -251,7 +251,7 @@
   */
 HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
 {
-  HAL_StatusTypeDef status = HAL_ERROR;
+  HAL_StatusTypeDef status;
 
   /* Check RTC handler validity */
   if (hrtc == NULL)
@@ -367,7 +367,7 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
   */
 HAL_StatusTypeDef HAL_RTC_DeInit(RTC_HandleTypeDef *hrtc)
 {
-  HAL_StatusTypeDef status = HAL_ERROR;
+  HAL_StatusTypeDef status;
 
   /* Check the parameters */
   assert_param(IS_RTC_ALL_INSTANCE(hrtc->Instance));
@@ -386,7 +386,7 @@ HAL_StatusTypeDef HAL_RTC_DeInit(RTC_HandleTypeDef *hrtc)
     /* Reset RTC registers */
     hrtc->Instance->TR = 0x00000000U;
     hrtc->Instance->DR = (RTC_DR_WDU_0 | RTC_DR_MU_0 | RTC_DR_DU_0);
-    hrtc->Instance->CR  &= 0x00000000U;
+    hrtc->Instance->CR = 0x00000000U;
 #if defined(RTC_WAKEUP_SUPPORT)
     hrtc->Instance->WUTR = RTC_WUTR_WUT;
 #endif /* RTC_WAKEUP_SUPPORT */
@@ -1748,7 +1748,7 @@ uint8_t RTC_ByteToBcd2(uint8_t number)
   while (bcdlow >= 10U)
   {
     bcdhigh++;
-    bcdlow -= 10U;
+    bcdlow -= (uint8_t)10;
   }
 
   return ((uint8_t)(bcdhigh << 4U) | bcdlow);

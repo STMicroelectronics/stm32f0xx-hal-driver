@@ -531,7 +531,7 @@ typedef struct
   * @param  __VALUE__ Value to be written in the register
   * @retval None
   */
-#define LL_RTC_WriteReg(__INSTANCE__, __REG__, __VALUE__) WRITE_REG(__INSTANCE__->__REG__, (__VALUE__))
+#define LL_RTC_WriteReg(__INSTANCE__, __REG__, __VALUE__) WRITE_REG((__INSTANCE__)->__REG__, (__VALUE__))
 
 /**
   * @brief  Read a value in RTC register
@@ -539,7 +539,7 @@ typedef struct
   * @param  __REG__ Register to be read
   * @retval Register value
   */
-#define LL_RTC_ReadReg(__INSTANCE__, __REG__) READ_REG(__INSTANCE__->__REG__)
+#define LL_RTC_ReadReg(__INSTANCE__, __REG__) READ_REG((__INSTANCE__)->__REG__)
 /**
   * @}
   */
